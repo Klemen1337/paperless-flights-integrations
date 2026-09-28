@@ -57,8 +57,12 @@ as SVG in render.js using only panel inks.
 ## Conventions that span files
 
 - **Adding/changing a setting** touches: `config.json` (`formSchema` property + default, and both `configVariants`),
-  `defaults` and `normalize()` in `assets/render.js`, the query params in `fetchData()` if the API needs it, parsing in
-  `api/data.js` `handler`, and the settings table in `README.md`.
+  `defaults` in `assets/render.js`, its type/limits in `SETTINGS` in `assets/settings.js`, the query params in
+  `fetchData()` if the API needs it, parsing in `api/data.js` `handler`, and the settings table in `README.md`.
+- **Settings arrive as arbitrary strings.** Parse them only through `assets/settings.js` (shared by page and API):
+  strict decimals (comma allowed, `""` is *missing*, never `0`), booleans like `true/yes/on`, trimmed case-insensitive
+  choices. Missing → default silently; present but unusable → default and listed in the red "Check settings" notice.
+  Coordinates out of range are rejected, not clamped.
 - **User-visible strings** go in `languages/en.json`, `de.json`, `sl.json` (read as `messages.*` with an English fallback
   in code; `fill()` substitutes `{placeholders}`).
 - **Colours**: the panel has only a few inks and the optimiser snaps everything else to the nearest one. Use the `--pp-*`

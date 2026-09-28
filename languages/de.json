@@ -1,4 +1,5 @@
 {
+  "invalidSettings": "Einstellungen prüfen: {names}",
   "titlePlace": "Flüge über {place}",
   "title": "Flüge über mir",
   "loading": "Flüge werden geladen …",

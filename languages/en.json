@@ -1,4 +1,5 @@
 {
+  "invalidSettings": "Check settings: {names}",
   "titlePlace": "Flights above {place}",
   "title": "Flights overhead",
   "loading": "Loading flights …",

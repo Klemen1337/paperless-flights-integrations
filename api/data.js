@@ -26,6 +26,7 @@ import {
   destination,
   distanceKm,
 } from "../assets/geo.js";
+import { parseBool, parseNumber } from "../assets/settings.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const basemapDir = path.resolve(here, "..", "data", "basemap");
@@ -47,14 +48,19 @@ const MAX_TRACE_FETCHES = 20;
 
 // ---------------------------------------------------------------- helpers
 
+// Query values are strings; parse strictly (Number("") would be 0).
 function num(value, fallback, min, max) {
-  const n = Number(value);
-  if (!Number.isFinite(n)) return fallback;
+  const n = parseNumber(value);
+  if (Number.isNaN(n)) return fallback;
   return Math.min(max, Math.max(min, n));
 }
+// Coordinates outside the range are rejected rather than clamped.
+function coord(value, fallback, limit) {
+  const n = parseNumber(value);
+  return Number.isNaN(n) || Math.abs(n) > limit ? fallback : n;
+}
 function bool(value, fallback = false) {
-  if (value === undefined || value === null || value === "") return fallback;
-  return value === true || value === "true" || value === 1 || value === "1";
+  return parseBool(value) ?? fallback;
 }
 
 async function fetchJson(url, { timeoutMs = 6000, method = "GET", body } = {}) {
@@ -342,8 +348,8 @@ function sampleFlights(center, now) {
 
 export default async function handler({ query = {} } = {}) {
   const now = Date.now();
-  const latitude = num(query.latitude, 46.0569, -85, 85);
-  const longitude = num(query.longitude, 14.5058, -180, 180);
+  const latitude = coord(query.latitude, 46.0569, 85);
+  const longitude = coord(query.longitude, 14.5058, 180);
   const zoom = num(query.zoom, 9, 4, 14);
   const width = Math.round(num(query.width, 480, 100, 4000));
   const height = Math.round(num(query.height, 480, 100, 4000));

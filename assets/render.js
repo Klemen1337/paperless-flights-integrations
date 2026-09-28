@@ -11,6 +11,7 @@ import {
   escapeHtml,
 } from "./paperless.js";
 import { createProjection, KM_PER_NM } from "./geo.js";
+import { normalizeSettings } from "./settings.js";
 
 const defaults = {
   color: "blue-light",
@@ -66,36 +67,6 @@ const $ = (sel) => document.querySelector(sel);
 // Airliner silhouette pointing north, roughly 22 units long.
 const PLANE_PATH =
   "M0,-11C1,-11 1.6,-10 1.6,-8.5L1.6,-3.2L10.5,2L10.5,4.2L1.6,1.6L1.2,7L4.2,9.2L4.2,10.8L0,9.8L-4.2,10.8L-4.2,9.2L-1.2,7L-1.6,1.6L-10.5,4.2L-10.5,2L-1.6,-3.2L-1.6,-8.5C-1.6,-10 -1,-11 0,-11Z";
-
-function toBool(v, fallback) {
-  if (v === undefined || v === null || v === "") return fallback;
-  return v === true || v === "true" || v === 1 || v === "1";
-}
-function toNum(v, fallback, min, max) {
-  const n = Number(v);
-  return Number.isFinite(n) ? Math.min(max, Math.max(min, n)) : fallback;
-}
-function normalize(s) {
-  return {
-    ...s,
-    title: String(s.title ?? "").slice(0, 60),
-    locationName: String(s.locationName ?? "").slice(0, 60),
-    latitude: toNum(s.latitude, defaults.latitude, -85, 85),
-    longitude: toNum(s.longitude, defaults.longitude, -180, 180),
-    zoom: toNum(s.zoom, defaults.zoom, 5, 13),
-    listCount: Math.round(toNum(s.listCount, defaults.listCount, 0, 12)),
-    trailMinutes: Math.round(toNum(s.trailMinutes, defaults.trailMinutes, 0, 15)),
-    minAltitudeFt: toNum(s.minAltitudeFt, 0, 0, 40000),
-    units: ["aviation", "metric", "imperial"].includes(s.units) ? s.units : defaults.units,
-    basemap: ["detailed", "simple", "none"].includes(s.basemap) ? s.basemap : defaults.basemap,
-    showRoutes: toBool(s.showRoutes, true),
-    includeGround: toBool(s.includeGround, false),
-    showRangeRings: toBool(s.showRangeRings, true),
-    sampleData: toBool(s.sampleData, false),
-    showPhotos: toBool(s.showPhotos, true),
-    timeZone: String(s.timeZone || ""),
-  };
-}
 
 function fill(template, values) {
   return String(template || "").replace(/\{(\w+)\}/g, (_, k) => (k in values ? values[k] : ""));
@@ -526,7 +497,8 @@ async function renderPayload(payload) {
     const { messages = {}, language } = await loadLanguageJson(payload, { supported: ["en", "de", "sl"], defaultLanguage: "en" });
     if (stale()) return;
     const locale = language || payload?.meta?.language || "en";
-    const settings = normalize(mergeSettings(defaults, getSettings(payload), getQuerySettings()));
+    const { settings, invalid } = normalizeSettings(mergeSettings(defaults, getSettings(payload), getQuerySettings()), defaults);
+    if (invalid.length) console.warn("Invalid settings, defaults used:", invalid.join(", "));
     applyColorTheme(settings.color, { defaultTheme: defaults.color });
     const units = unitsFor(settings.units, locale);
 
@@ -570,6 +542,7 @@ async function renderPayload(payload) {
     const renderMeta = (moreText = "") =>
       ($("#meta").innerHTML = [
         data?.sample ? `<span><span class="sample-flag">${escapeHtml(messages.sample || "DEMO DATA")}</span></span>` : "",
+        invalid.length ? `<span><span class="settings-flag">${escapeHtml(fill(messages.invalidSettings || "Check settings: {names}", { names: invalid.join(", ") }))}</span></span>` : "",
         `<span><strong>${escapeHtml(fill(messages.inView || "{count} in view", { count: flights.length }))}</strong>${moreText ? ` · ${escapeHtml(moreText)}` : ""}</span>`,
         `<span>${escapeHtml(messages.updated || "Updated")} ${escapeHtml(time)}</span>`,
       ].join(""));

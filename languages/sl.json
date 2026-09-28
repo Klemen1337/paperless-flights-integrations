@@ -1,4 +1,5 @@
 {
+  "invalidSettings": "Preveri nastavitve: {names}",
   "titlePlace": "Leti nad {place}",
   "title": "Leti nad mano",
   "loading": "Nalagam lete …",
