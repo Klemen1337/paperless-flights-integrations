@@ -1,0 +1,10 @@
+services:
+  flights-overhead:
+    build: .
+    image: flights-overhead:latest
+    container_name: flights-overhead
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000

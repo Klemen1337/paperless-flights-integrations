@@ -1,0 +1,21 @@
+{
+  "name": "paperlesspaper-flights-overhead",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "paperlesspaper Open Integration: live flights overhead on a map with trails and a short flight list.",
+  "scripts": {
+    "dev": "paperlesspaper-openintegration dev ./config.json",
+    "check": "paperlesspaper-openintegration check ./config.json",
+    "build:basemap": "node scripts/build-basemap.mjs",
+    "copy:assets": "node scripts/copy-toolkit-assets.mjs",
+    "render": "node scripts/render-all.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "start": "node server.mjs"
+  },
+  "devDependencies": {
+    "@fontsource/open-sans": "^5.2.7",
+    "@paperlesspaper/openintegration": "^0.1.1",
+    "all-the-cities": "^3.1.0"
+  }
+}

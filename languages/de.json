@@ -1,0 +1,20 @@
+{
+  "titlePlace": "Flüge über {place}",
+  "title": "Flüge über mir",
+  "loading": "Flüge werden geladen …",
+  "sample": "DEMODATEN",
+  "updated": "Aktualisiert",
+  "inView": "{count} im Bild",
+  "noFlights": "Gerade keine Flugzeuge im Kartenausschnitt.",
+  "noFlightsHint": "Eine kleinere Zoomstufe zeigt ein größeres Gebiet.",
+  "error": "Flugdaten nicht verfügbar",
+  "errorHint": "Die Karte wird ohne Live-Flugzeuge angezeigt. Beim nächsten Aktualisieren wird es erneut versucht.",
+  "ground": "am Boden",
+  "unknownRoute": "Route unbekannt",
+  "emergency": "NOTFALL",
+  "climbing": "steigt",
+  "descending": "sinkt",
+  "source": "Flüge: {source} (ODbL) · Karte: Natural Earth",
+  "more": "+{count} weitere auf der Karte",
+  "fromHome": "von dir"
+}

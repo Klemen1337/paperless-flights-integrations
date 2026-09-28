@@ -1,0 +1,20 @@
+{
+  "titlePlace": "Leti nad {place}",
+  "title": "Leti nad mano",
+  "loading": "Nalagam lete …",
+  "sample": "DEMO PODATKI",
+  "updated": "Posodobljeno",
+  "inView": "{count} na zemljevidu",
+  "noFlights": "Trenutno ni letal na zemljevidu.",
+  "noFlightsHint": "Manjša povečava pokaže širše območje.",
+  "error": "Podatki o letih niso na voljo",
+  "errorHint": "Zemljevid je prikazan brez letal. Ob naslednji osvežitvi poskusi znova.",
+  "ground": "na tleh",
+  "unknownRoute": "Relacija neznana",
+  "emergency": "NUJNO",
+  "climbing": "vzpenja se",
+  "descending": "spušča se",
+  "source": "Leti: {source} (ODbL) · Zemljevid: Natural Earth",
+  "more": "+{count} več na zemljevidu",
+  "fromHome": "od tebe"
+}

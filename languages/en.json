@@ -1,0 +1,20 @@
+{
+  "titlePlace": "Flights above {place}",
+  "title": "Flights overhead",
+  "loading": "Loading flights …",
+  "sample": "DEMO DATA",
+  "updated": "Updated",
+  "inView": "{count} in view",
+  "noFlights": "No aircraft in view right now.",
+  "noFlightsHint": "Try a lower zoom level to see a wider area.",
+  "error": "Flight data unavailable",
+  "errorHint": "The map is shown without live aircraft. It will retry on the next refresh.",
+  "ground": "on ground",
+  "unknownRoute": "Route unknown",
+  "emergency": "EMERGENCY",
+  "climbing": "climbing",
+  "descending": "descending",
+  "source": "Flights: {source} (ODbL) · Map: Natural Earth",
+  "more": "+{count} more on the map",
+  "fromHome": "from you"
+}

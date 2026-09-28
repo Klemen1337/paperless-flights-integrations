@@ -1,0 +1,197 @@
+{
+  "name": "Flights Overhead",
+  "version": "0.1.0",
+  "status": "alpha",
+  "description": "Live aircraft around your location on a map with plane icons and short trails, plus details for the closest flights.",
+  "renderPage": "./render.html",
+  "icon": "./assets/icon.png",
+  "language": [
+    "en",
+    "de",
+    "sl"
+  ],
+  "nativeSettings": {
+    "color": "blue-light",
+    "title": "",
+    "locationName": "",
+    "latitude": 46.0569,
+    "longitude": 14.5058,
+    "zoom": 9,
+    "listCount": 8,
+    "trailMinutes": 3,
+    "units": "metric",
+    "showRoutes": true,
+    "includeGround": false,
+    "minAltitudeFt": 0,
+    "basemap": "detailed",
+    "showRangeRings": true,
+    "timeZone": "Europe/Ljubljana",
+    "sampleData": false,
+    "showPhotos": true
+  },
+  "formSchema": {
+    "type": "object",
+    "properties": {
+      "title": {
+        "type": "string",
+        "default": "",
+        "title": "Title (empty for \"Flights above <location>\")",
+        "maxLength": 60
+      },
+      "locationName": {
+        "type": "string",
+        "default": "",
+        "title": "Location label (empty uses the nearest town)",
+        "maxLength": 60
+      },
+      "latitude": {
+        "type": "number",
+        "default": 46.0569,
+        "title": "Latitude",
+        "minimum": -85,
+        "maximum": 85,
+        "step": 0.0001
+      },
+      "longitude": {
+        "type": "number",
+        "default": 14.5058,
+        "title": "Longitude",
+        "minimum": -180,
+        "maximum": 180,
+        "step": 0.0001
+      },
+      "zoom": {
+        "type": "number",
+        "default": 9,
+        "title": "Map zoom (5 = region, 9 = about 60 km across, 12 = town)",
+        "minimum": 5,
+        "maximum": 13,
+        "step": 0.5
+      },
+      "listCount": {
+        "type": "integer",
+        "default": 8,
+        "title": "Flights listed with the map (rows that do not fit are left out; two columns on portrait panels)",
+        "minimum": 0,
+        "maximum": 12
+      },
+      "trailMinutes": {
+        "type": "integer",
+        "default": 3,
+        "title": "Trail length (minutes, 0 hides trails)",
+        "minimum": 0,
+        "maximum": 15
+      },
+      "units": {
+        "type": "string",
+        "default": "metric",
+        "title": "Units",
+        "enum": [
+          "aviation",
+          "metric",
+          "imperial"
+        ]
+      },
+      "showRoutes": {
+        "type": "boolean",
+        "default": true,
+        "title": "Show origin and destination when known"
+      },
+      "showPhotos": {
+        "type": "boolean",
+        "default": true,
+        "title": "Show a photo of each listed plane (planespotters.net)"
+      },
+      "includeGround": {
+        "type": "boolean",
+        "default": false,
+        "title": "Include aircraft on the ground"
+      },
+      "minAltitudeFt": {
+        "type": "integer",
+        "default": 0,
+        "title": "Hide aircraft below this altitude (ft)",
+        "minimum": 0,
+        "maximum": 40000
+      },
+      "basemap": {
+        "type": "string",
+        "default": "detailed",
+        "title": "Map detail",
+        "enum": [
+          "detailed",
+          "simple",
+          "none"
+        ]
+      },
+      "showRangeRings": {
+        "type": "boolean",
+        "default": true,
+        "title": "Show distance rings around your location"
+      },
+      "timeZone": {
+        "type": "string",
+        "default": "Europe/Ljubljana",
+        "title": "Time zone for the update time (IANA name)",
+        "maxLength": 60
+      },
+      "sampleData": {
+        "type": "boolean",
+        "default": false,
+        "title": "Use clearly labelled demo flights"
+      }
+    }
+  },
+  "configVariants": [
+    {
+      "color": "blue-light",
+      "title": "",
+      "locationName": "",
+      "latitude": 46.0569,
+      "longitude": 14.5058,
+      "zoom": 9,
+      "listCount": 8,
+      "trailMinutes": 3,
+      "units": "metric",
+      "showRoutes": true,
+      "includeGround": false,
+      "minAltitudeFt": 0,
+      "basemap": "detailed",
+      "showRangeRings": true,
+      "timeZone": "Europe/Ljubljana",
+      "sampleData": true,
+      "screenshots": {
+        "1200x1600": "./screenshots/flights-overhead-default-1200x1600-portrait.png",
+        "1600x1200": "./screenshots/flights-overhead-default-1600x1200-landscape.png",
+        "480x800": "./screenshots/flights-overhead-default-480x800-portrait.png",
+        "800x480": "./screenshots/flights-overhead-default-800x480-landscape.png"
+      },
+      "showPhotos": true
+    },
+    {
+      "color": "dark",
+      "title": "",
+      "locationName": "",
+      "latitude": 46.0569,
+      "longitude": 14.5058,
+      "zoom": 9,
+      "listCount": 8,
+      "trailMinutes": 3,
+      "units": "metric",
+      "showRoutes": true,
+      "includeGround": false,
+      "minAltitudeFt": 0,
+      "basemap": "detailed",
+      "showRangeRings": true,
+      "timeZone": "Europe/Ljubljana",
+      "sampleData": true,
+      "screenshots": {
+        "1200x1600": "./screenshots/flights-overhead-dark-1200x1600-portrait.png",
+        "1600x1200": "./screenshots/flights-overhead-dark-1600x1200-landscape.png",
+        "480x800": "./screenshots/flights-overhead-dark-480x800-portrait.png",
+        "800x480": "./screenshots/flights-overhead-dark-800x480-landscape.png"
+      },
+      "showPhotos": true
+    }
+  ]
+}
