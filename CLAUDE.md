@@ -11,7 +11,7 @@ Target sizes: L panel 1200x1600 / 1600x1200 and 7" panel 480x800 / 800x480; port
 ## Commands
 
 ```sh
-npm start                     # node server.mjs, http://localhost:3000/ (PORT env overrides)
+npm start                     # node server.mjs, http://localhost:4400/ (PORT env overrides)
 node --test tests/            # run tests (see note below)
 node --test --test-name-pattern="demo mode" tests/   # single test by name
 npm run check                 # validate config.json manifest with the paperlesspaper toolkit
@@ -19,12 +19,12 @@ npm run dev                   # paperlesspaper host simulator with live settings
 CHROME_BIN=/path/to/chrome npm run render -- --epd   # regenerate screenshots/ (+ Spectra 6 optimised) and record them in config.json
 npm run build:basemap         # rebuild data/basemap/ from Natural Earth GeoJSON in .natural-earth/ (see README)
 npm run copy:assets           # copy toolkit runtime + Open Sans fonts from node_modules into assets/ (KEEP_TOOLKIT=1 keeps assets/paperless.*)
-docker compose up -d --build  # container on port 3000
+docker compose up -d --build  # container on port 4400
 ```
 
 - `npm test` uses the glob `tests/*.test.mjs`, which is not expanded on Windows; use `node --test tests/` there.
-- A `flights-overhead` Docker container often already occupies port 3000 and serves an older build. `.claude/launch.json`
-  has `autoPort: true` so the preview runs the local source on another port. Rebuild the container to see changes there.
+- A running `flights-overhead` Docker container may already hold the port and serve an older build. `.claude/launch.json`
+  has `autoPort: true` so the preview then runs the local source on another port. Rebuild the container to see changes there.
 - No runtime npm dependencies: `server.mjs` and `api/data.js` use only Node built-ins. devDependencies are only for the
   toolkit CLI, fonts and the basemap builder.
 

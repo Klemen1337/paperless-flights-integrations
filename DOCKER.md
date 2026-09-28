@@ -23,8 +23,8 @@ or an Ampere/Graviton VPS (`arm64`), and pushes in one step:
 docker buildx create --name multi --use        # first time only
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
-  -t YOUR_DOCKERHUB_USER/flights-overhead:0.1.0 \
-  -t YOUR_DOCKERHUB_USER/flights-overhead:latest \
+  -t YOUR_DOCKERHUB_USER/paperless-paper-flights-integration:0.1.0 \
+  -t YOUR_DOCKERHUB_USER/paperless-paper-flights-integration:latest \
   --push .
 ```
 
@@ -35,10 +35,12 @@ On Windows PowerShell, put the command on one line or replace `\` with a backtic
 Only if your server has the same CPU architecture as the machine you build on:
 
 ```sh
-docker build -t YOUR_DOCKERHUB_USER/flights-overhead:0.1.0 .
-docker tag YOUR_DOCKERHUB_USER/flights-overhead:0.1.0 YOUR_DOCKERHUB_USER/flights-overhead:latest
-docker push YOUR_DOCKERHUB_USER/flights-overhead:0.1.0
-docker push YOUR_DOCKERHUB_USER/flights-overhead:latest
+docker build -t YOUR_DOCKERHUB_USER/paperless-paper-flights-integration:0.1.0 .
+docker tag YOUR_DOCKERHUB_USER/paperless-paper-flights-integration:0.1.0 YOUR_DOCKERHUB_USER/paperless-paper-flights-integration:latest
+docker push YOUR_DOCKERHUB_USER/paperless-paper-flights-integration:0.1.0
+
+docker build -t klemen1337/paperless-paper-flights-integration:latest .
+docker push klemen1337/paperless-paper-flights-integration:latest
 ```
 
 Bump the version tag (it matches `version` in `package.json` and `config.json`)
@@ -54,17 +56,17 @@ Create a folder on the server with this `docker-compose.yml`:
 ```yaml
 services:
   flights-overhead:
-    image: YOUR_DOCKERHUB_USER/flights-overhead:latest
+    image: YOUR_DOCKERHUB_USER/paperless-paper-flights-integration:latest
     container_name: flights-overhead
     restart: unless-stopped
     ports:
-      - "127.0.0.1:3000:3000"   # only reachable through the reverse proxy
+      - "127.0.0.1:4400:4400"   # only reachable through the reverse proxy
 ```
 
 ```sh
 docker compose pull
 docker compose up -d
-curl http://127.0.0.1:3000/health       # {"ok":true}
+curl http://127.0.0.1:4400/health       # {"ok":true}
 ```
 
 ## 4. HTTPS
@@ -76,13 +78,13 @@ Caddy gets and renews the certificate automatically. `/etc/caddy/Caddyfile`:
 
 ```
 flights.example.com {
-    reverse_proxy 127.0.0.1:3000
+    reverse_proxy 127.0.0.1:4400
 }
 ```
 
-nginx works too (`proxy_pass http://127.0.0.1:3000;` plus a certificate from
+nginx works too (`proxy_pass http://127.0.0.1:4400;` plus a certificate from
 certbot). If the proxy itself runs in Docker, put both containers on one network
-and proxy to `flights-overhead:3000` instead.
+and proxy to `flights-overhead:4400` instead.
 
 Check from any machine:
 

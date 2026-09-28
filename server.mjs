@@ -3,7 +3,7 @@
 // api/data.js at /api/data. Put it behind HTTPS and install
 // https://<your-host>/config.json in the paperlesspaper app.
 //
-//   PORT=3000 node server.mjs
+//   PORT=4400 node server.mjs
 
 import http from "node:http";
 import fs from "node:fs/promises";
@@ -12,7 +12,7 @@ import { fileURLToPath } from "node:url";
 import dataHandler from "./api/data.js";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
-const port = Number(process.env.PORT || 3000);
+const port = Number(process.env.PORT || 4400);
 
 const TYPES = {
   ".html": "text/html; charset=utf-8",

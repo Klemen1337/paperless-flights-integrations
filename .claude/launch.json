@@ -1,6 +1,6 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "flights-overhead", "runtimeExecutable": "node", "runtimeArgs": ["server.mjs"], "port": 3000, "autoPort": true }
+    { "name": "flights-overhead", "runtimeExecutable": "node", "runtimeArgs": ["server.mjs"], "port": 4400, "autoPort": true }
   ]
 }

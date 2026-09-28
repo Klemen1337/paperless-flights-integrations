@@ -78,7 +78,7 @@ tests/               node:test checks for the math and the data route
 
 ```sh
 npm install
-npm start                 # http://localhost:3000/ , manifest at /config.json
+npm start                 # http://localhost:4400/ , manifest at /config.json
 npm test
 npm run check             # manifest validation
 npm run dev               # paperlesspaper host simulator with live settings
@@ -88,7 +88,7 @@ CHROME_BIN=/path/to/chrome npm run render -- --epd   # refresh screenshots/
 ### Docker
 
 ```sh
-docker compose up -d --build   # builds flights-overhead:latest, serves port 3000
+docker compose up -d --build   # builds flights-overhead:latest, serves port 4400
 docker compose logs -f
 docker compose down
 ```
